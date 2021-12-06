@@ -1,4 +1,6 @@
 import {
+  CURRENT_PAGE_SET,
+  SET_PAGE_LOADING,
   REGISTER_SUCCESS,
   //REGISTER_FAIL,
   USER_LOADED,
@@ -7,26 +9,39 @@ import {
   //LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED
-} from '../actions/types';
+} from '../actions/types'
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  currentPage: 'dashboard',
+  pageIsLoading: false,token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
   user: null
-};
+}
 
 function authReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const { type, payload } = action
 
   switch (type) {
+    case CURRENT_PAGE_SET: {
+      return {
+        ...state,
+        currentPage: payload
+      }
+    }
+    case SET_PAGE_LOADING: {
+      return {
+        ...state,
+        pageIsLoading: payload
+      }
+    }
     case USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: payload
-      };
+      }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       return {
@@ -34,7 +49,7 @@ function authReducer(state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false
-      };
+      }
     case ACCOUNT_DELETED:
       return {
         ...state,
@@ -42,7 +57,7 @@ function authReducer(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
-      };
+      }
     case AUTH_ERROR:
     case LOGOUT:
       return {
@@ -51,10 +66,10 @@ function authReducer(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default authReducer;
+export default authReducer
