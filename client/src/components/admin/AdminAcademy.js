@@ -11,14 +11,14 @@ const AdminAcademy = () => {
           <div className='font-24 font-bold'>Academy <i className='fa fa-plus-circle text-pure-gold-grey'></i></div>
           <div className='row pt-4'>
             <div className='col-lg-3 col-md-5 border-right'>
-              {['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'EXPERT'].map((item, index) =>
+              {['READY', 'SET', 'LAUNCH'].map((item, index) =>
                 <div key={index} className='pb-4'>
                   <div className='font-18 font-bold'>
                     {item} <i className='fa fa-plus-circle text-pure-gold-grey cursor-pointer'></i>
                   </div>
-                  {[1, 2, 3, 4].map((moduleItem, moduleIndex) =>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((moduleItem, moduleIndex) =>
                     <div key={moduleIndex} className={'rounded-lg cursor-pointer font-16 pl-1 ' + (index === 0 && moduleIndex === 0 ? 'bg-pure-gold-brown' : '')}>
-                      <i className='fa fa-caret-right'></i> Module {moduleItem}
+                      <i className='fa fa-caret-right'></i> Chapter {moduleItem}
                     </div>
                   )}
                 </div>
