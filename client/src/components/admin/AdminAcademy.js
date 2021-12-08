@@ -37,7 +37,7 @@ const AdminAcademy = () => {
               <div className='font-18 pt-3 text-justify'>
                 The final step for selling on Walmart Marketplace is launching your account. When you “mark as done” all the items on your Walmart Launch Checklist in Seller Center, a pop-up message will ask you to confirm that you’re ready to launch. When you select “confirm”, this will trigger a launch request.
               </div>
-              <div className="text-center">
+              <div className="text-center p-1 pt-3">
                 <Vimeo
                   video={354682480}
                   responsive={true}
