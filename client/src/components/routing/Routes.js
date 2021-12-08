@@ -9,12 +9,13 @@ import PrivateRoute from '../routing/PrivateRoute'
 
 const Routes = props => {
   return (
-    <section className="container">
+    <section>
       <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
     </section>

@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
-import Landing from './components/layout/Landing'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import Routes from './components/routing/Routes'
 import { LOGOUT } from './actions/types'
 
@@ -31,9 +29,10 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar />
           <Switch>
-            <Route exact path="/" component={Landing} />
+            <Route exact path='/'>
+              <Redirect to='/login' />
+            </Route>
             <Route component={Routes} />
           </Switch>
         </Fragment>

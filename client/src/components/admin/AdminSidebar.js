@@ -21,28 +21,49 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
   return (
     <div className='col-lg-2 col-md-3 sidebar p-0'>
       <div className='container-fluid p-0'>
-        <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'dashboard' ? 'selected' : '')} onClick={() => goPage('dashboard')}>
+        <div className={'row mx-0 h5 menuItem rounded mt-5 p-1 pl-3 ' + (currentPage === 'dashboard' ? 'selected' : '')} onClick={() => goPage('dashboard')}>
           <div className='d-flex align-items-center'>
-            <div><i className='mr-3 fa fa-user'></i></div>
+            <div><i className="material-icons mr-3">dashboard</i></div>
             <div>Dashboard</div>
           </div>
         </div>
+        <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'customers' ? 'selected' : '')} onClick={() => goPage('customers')}>
+          <div className='d-flex align-items-center'>
+            <div><i className='mr-3 fas fa-user-friends'></i></div>
+            <div>Customers</div>
+          </div>
+        </div>
+        <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'academy' ? 'selected' : '')} onClick={() => goPage('academy')}>
+          <div className='d-flex align-items-center'>
+            <div><i className="fas fa-book mr-3"></i></div>
+            <div>Academy</div>
+          </div>
+        </div>
 
-        <div className={'row mx-1 h5 menuItem rounded p-1 ' + (currentPage === 'settings' ? 'selected' : '')} onClick={() => goPage('settings')}>
-          <div className='d-flex align-items-center'>
-            <div><i className='mr-3 fa fa-user'></i></div>
-            <div>Settings</div>
+        <div className='signoutLink pb-2'>
+          <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'profile' ? 'selected' : '')} onClick={() => goPage('profile')}>
+            <div className='d-flex align-items-center'>
+              <div><i className='mr-3 fa fa-user'></i></div>
+              <div>Profile</div>
+            </div>
+          </div>
+          <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'settings' ? 'selected' : '')} onClick={() => goPage('settings')}>
+            <div className='d-flex align-items-center'>
+              <div><i className='mr-3 fa fa-sliders'></i></div>
+              <div>Settings</div>
+            </div>
+          </div>
+          <div className='row mx-0 h5 menuItem rounded p-1 pl-3' onClick={() => {
+            setCurrentPage('dashboard')
+            logout()
+          }}>
+            <div className='d-flex align-items-center'>
+              <div><i className='mr-3 fa fa-user'></i></div>
+              <div>Logout</div>
+            </div>
           </div>
         </div>
-        <div className='row mx-1 h5 menuItem rounded p-1' onClick={() => {
-          setCurrentPage('dashboard')
-          logout()
-        }}>
-          <div className='d-flex align-items-center'>
-            <div><i className='mr-3 fa fa-user'></i></div>
-            <div>Sign Out</div>
-          </div>
-        </div>
+
       </div>
     </div>
   )
