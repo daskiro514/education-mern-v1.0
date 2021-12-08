@@ -184,3 +184,14 @@ hr {
   margin-left: 10px;
   height: 25px;
 }
+
+.bg-login {
+  background: #5F6063;
+  min-height: 100vh;
+}
+
+.bg-login .form-label {
+  text-decoration: none;
+  color: white;
+  float: right;
+}
