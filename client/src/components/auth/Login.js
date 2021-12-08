@@ -81,7 +81,7 @@ const Login = ({ login, isAuthenticated }) => {
                         value='Login'
                       />
                     </div>
-                    <div className='form-group'>
+                    {/* <div className='form-group'>
                       <Link
                         to='/register'
                         className='btn form-control'
@@ -89,7 +89,7 @@ const Login = ({ login, isAuthenticated }) => {
                       >
                         Register
                       </Link>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               </div>
