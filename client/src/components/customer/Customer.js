@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import PrivateRoute from '../routing/PrivateRoute'
 import CustomerSidebar from './CustomerSidebar'
 import CustomerDashboard from './CustomerDashboard'
@@ -13,7 +13,10 @@ const Customer = () => {
         <CustomerSidebar />
         <div className='col-lg-10 col-md-9'>
           <Router basename="/dashboard">
-            <PrivateRoute exact path="/" component={CustomerDashboard} />
+            <Route exact path='/'>
+              <Redirect to='/academy/1/1' />
+            </Route>
+            <PrivateRoute exact path="/academy/:category/:chapter" component={CustomerDashboard} />
           </Router>
         </div>
       </div>

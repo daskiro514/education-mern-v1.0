@@ -12,7 +12,7 @@ const CustomerSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
     await history.push(`/dashboard`)
 
     if (location === 'dashboard') {
-      await history.push(`/dashboard/`)
+      await history.push(`/dashboard/academy/1/1`)
       return
     }
     await history.push(`/dashboard/${location}`)
