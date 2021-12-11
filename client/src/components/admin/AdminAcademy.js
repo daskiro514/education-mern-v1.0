@@ -1,48 +1,59 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Vimeo from '@u-wave/react-vimeo'
+import { getCourses } from '../../actions/course'
 
-const AdminAcademy = () => {
+const AdminAcademy = ({ match, getCourses, courses }) => {
+  const { category, chapter } = match.params
+
+  React.useEffect(() => {
+    getCourses(category, chapter)
+  }, [category, chapter, getCourses])
 
   return (
     <div className='row admin-academy bg-pure-gold-grey py-4'>
       <div className='col-lg-12'>
         <div className='bg-white pure-gold-rounded-lg p-3 mb-3'>
-          <div className='font-24 font-bold'>Academy <i className='fa fa-plus-circle text-pure-gold-grey'></i></div>
+          <div className='font-24 font-bold'>Academy <Link to={`/academy-create/${category}/${chapter}`}><i className='fa fa-plus-circle text-pure-gold-grey'></i></Link></div>
           <div className='row pt-4'>
             <div className='col-lg-3 col-md-5 border-right'>
               {['READY', 'SET', 'LAUNCH'].map((item, index) =>
                 <div key={index} className='pb-4'>
                   <div className='font-18 font-bold'>
-                    {item} <i className='fa fa-plus-circle text-pure-gold-grey cursor-pointer'></i>
+                    {item}
                   </div>
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((moduleItem, moduleIndex) =>
-                    <div key={moduleIndex} className={'rounded-lg cursor-pointer font-16 pl-1 ' + (index === 0 && moduleIndex === 0 ? 'bg-pure-gold-brown' : '')}>
-                      <i className='fa fa-caret-right'></i> Chapter {moduleItem}
-                    </div>
+                    <Link key={moduleIndex} to={`/academy/${index + 1}/${moduleItem}`}>
+                      <div className={'rounded-lg cursor-pointer font-16 pl-1 ' + ((index + 1) === Number(category) && moduleItem === Number(chapter) ? 'bg-pure-gold-brown' : '')}>
+                        <i className='fa fa-caret-right'></i> Chapter {moduleItem}
+                      </div>
+                    </Link>
                   )}
                 </div>
               )}
             </div>
             <div className='col-lg-9 col-md-7'>
-              <div className='font-18 font-bold'>
-                Module 1: How To Setup An Online Wal-Mart Store
-              </div>
-              <div className='font-18 pt-3 text-justify'>
-                The Walmart Marketplace is a platform that allows third-party sellers to list their items on Walmart.com, just like you would on Amazon or eBay. Follow the unique link in your approval email (subject line: “Your Account has been created in Walmart Marketplace”) to create your Partner Profile.
-              </div>
-              <div className='font-18 pt-3 text-justify'>
-                The Registration Wizard will walk you through five main sections: Account Creation, Partner Registration, Taxes (W-9),  and Shipping Info. Now that you have created your Partner Profile, you will have access to the Seller Center. Here, you’ll find a “Launch Checklist” that outlines the next several requirements before you can launch your account.
-              </div>
-              <div className='font-18 pt-3 text-justify'>
-                The final step for selling on Walmart Marketplace is launching your account. When you “mark as done” all the items on your Walmart Launch Checklist in Seller Center, a pop-up message will ask you to confirm that you’re ready to launch. When you select “confirm”, this will trigger a launch request.
-              </div>
-              <div className="text-center p-1 pt-3">
-                <Vimeo
-                  video={354682480}
-                  responsive={true}
-                />
-              </div>
+              {courses.length === 0 ? <div>There is no course in this chapter.</div> : null}
+              {courses.map((item, index) =>
+                <div key={index}>
+                  <div className='text-right'>
+                    <Link to={`/academy-edit/${item._id}`} className='btn bg-pure-gold-brown mb-2'>EDIT</Link>
+                  </div>
+                  <div className='font-18 font-bold'>
+                    Module {index + 1}: {item.title}
+                  </div>
+                  <div className='font-18 pt-3 text-justify course-description'>
+                    {item.description}
+                  </div>
+                  <div className="text-center p-1 pt-3">
+                    <Vimeo
+                      video={item.video}
+                      responsive={true}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -52,7 +63,7 @@ const AdminAcademy = () => {
 }
 
 const mapStateToProps = state => ({
-
+  courses: state.course.courses
 })
 
-export default connect(mapStateToProps, {})(AdminAcademy)
+export default connect(mapStateToProps, { getCourses })(AdminAcademy)

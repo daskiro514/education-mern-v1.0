@@ -195,3 +195,7 @@ hr {
   color: white;
   float: right;
 }
+
+.course-description {
+  -webkit-user-modify: read-write-plaintext-only;
+}
