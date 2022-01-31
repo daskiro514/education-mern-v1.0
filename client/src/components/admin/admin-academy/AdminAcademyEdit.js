@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
-import { getCourseByID, updateCourse } from '../../actions/course'
+import { getCourseByID, updateCourse } from '../../../actions/course'
 
 const AdminAcademyEdit = ({ match, getCourseByID, course, updateCourse }) => {
   const history = useHistory()

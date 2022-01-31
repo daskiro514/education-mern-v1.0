@@ -39,6 +39,12 @@ const AdminSidebar = ({ user, logout, setCurrentPage, currentPage }) => {
             <div>Academy</div>
           </div>
         </div>
+        <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'messages' ? 'selected' : '')} onClick={() => goPage('messages')}>
+          <div className='d-flex align-items-center'>
+            <div><i className="fa fa-wechat mr-3"></i></div>
+            <div>Messages</div>
+          </div>
+        </div>
 
         <div className='signoutLink pb-2'>
           <div className={'row mx-0 h5 menuItem rounded p-1 pl-3 ' + (currentPage === 'profile' ? 'selected' : '')} onClick={() => goPage('profile')}>

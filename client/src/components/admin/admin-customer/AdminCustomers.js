@@ -1,7 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { getAdminClients } from '../../../actions/admin'
+import { formatDateTime } from '../../../utils/formatDate1'
 
-const AdminCustomers = () => {
+const AdminCustomers = ({ clients, getAdminClients }) => {
+
+  React.useEffect(() => {
+    getAdminClients()
+  }, [getAdminClients])
 
   return (
     <div className='row admin-customers bg-pure-gold-grey py-4'>
@@ -19,7 +25,7 @@ const AdminCustomers = () => {
                 >
                   <option>All</option>
                   <option>Active</option>
-                  <option>Inactive</option>
+                  <option>InActive</option>
                 </select>
                 <input
                   type='text'
@@ -34,37 +40,33 @@ const AdminCustomers = () => {
               <thead>
                 <tr>
                   <th>NO</th>
-                  <th>USERNAME</th>
                   <th>AVATAR</th>
                   <th>NAME</th>
                   <th>STATE</th>
-                  <th>PARTNER</th>
                   <th>EMAIL</th>
                   <th>PHONE</th>
                   <th>PURCHASED SUBSCRIPTION</th>
-                  <th>CURRENT PERIOD START</th>
                   <th>CURRENT PERIOD END</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
+                {clients.map((item, index) =>
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>sbhooley</td>
-                    <td className='font-34 text-center'><i className='fa fa-user-secret'></i></td>
-                    <td>Steven Hooley</td>
-                    {index % 2 === 0 ?
+                    <td className='font-34 text-center'>
+                      <img alt='SETIMAGE' src={item.avatar} width='60px' className='rounded-lg' />
+                    </td>
+                    <td>{item.firstName} {item.lastName}</td>
+                    {item.state === 'Active' ?
                       <td><span className='badge bg-pure-gold-primary'>ACTIVE</span></td>
                       :
                       <td><span className='badge bg-pure-gold-danger'>INACTIVE</span></td>
                     }
-                    <td>Willette Whitted</td>
-                    <td>sbhooley@gmail.com</td>
-                    <td>4435184158</td>
-                    <td>Master Mind Package</td>
-                    <td>10/02/2021 11:56:42</td>
-                    <td>11/02/2021 11:56:42</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.subscription}</td>
+                    <td>{item.state === 'Active' ? formatDateTime(item.currentPeriodEnd * 1000) : ''}</td>
                     <td>
                       <i className='fa fa-pause font-16 mr-2 cursor-pointer'></i>
                       <i className='fa fa-play font-16 mr-2 cursor-pointer'></i>
@@ -82,7 +84,7 @@ const AdminCustomers = () => {
 }
 
 const mapStateToProps = state => ({
-
+  clients: state.admin.clients
 })
 
-export default connect(mapStateToProps, {})(AdminCustomers)
+export default connect(mapStateToProps, { getAdminClients })(AdminCustomers)

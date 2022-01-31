@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
-import { addNewCourse } from '../../actions/course'
+import { addNewCourse } from '../../../actions/course'
 
 const AdminAcademyCreate = ({ match, addNewCourse }) => {
   const history = useHistory()
@@ -23,7 +23,13 @@ const AdminAcademyCreate = ({ match, addNewCourse }) => {
   }
 
   React.useEffect(() => {
-    setFormData({ ...formData, 'category': propsCategory, 'chapter': propsChapter })
+    setFormData({
+      title: '',
+      description: '',
+      category: propsCategory,
+      chapter: propsChapter,
+      video: ''
+    })
   }, [propsCategory, propsChapter])
 
   const onSubmit = e => {

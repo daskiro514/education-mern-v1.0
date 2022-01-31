@@ -2,9 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vimeo from '@u-wave/react-vimeo'
-import { getCourses } from '../../actions/course'
+import { getCourses, deleteCourse } from '../../../actions/course'
+import { useHistory } from 'react-router-dom'
 
-const AdminAcademy = ({ match, getCourses, courses }) => {
+const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
+  const history = useHistory()
   const { category, chapter } = match.params
 
   React.useEffect(() => {
@@ -38,7 +40,13 @@ const AdminAcademy = ({ match, getCourses, courses }) => {
               {courses.map((item, index) =>
                 <div key={index}>
                   <div className='text-right'>
-                    <Link to={`/academy-edit/${item._id}`} className='btn bg-pure-gold-brown mb-2'>EDIT</Link>
+                    <Link to={`/academy-edit/${item._id}`} className='btn bg-pure-gold-brown mb-2 width-85'>EDIT</Link>
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Are you sure?')) deleteCourse(history, item._id)
+                      }}
+                      className='btn bg-pure-gold-brown mb-2 ml-2 width-85'
+                    >DELETE</button>
                   </div>
                   <div className='font-18 font-bold'>
                     Module {index + 1}: {item.title}
@@ -66,4 +74,4 @@ const mapStateToProps = state => ({
   courses: state.course.courses
 })
 
-export default connect(mapStateToProps, { getCourses })(AdminAcademy)
+export default connect(mapStateToProps, { getCourses, deleteCourse })(AdminAcademy)

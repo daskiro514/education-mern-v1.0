@@ -199,3 +199,32 @@ hr {
 .course-description {
   -webkit-user-modify: read-write-plaintext-only;
 }
+
+.message-item {
+  background-color: #E6CEAB;
+  width: fit-content;
+  max-width: 70%;
+  word-break: break-all;
+  -webkit-user-modify: read-write-plaintext-only;
+}
+
+.admin-client-messages .overflow {
+  height: 85vh;
+  overflow: auto;
+}
+
+.link-item {
+  background-color: #EDEDED;
+}
+
+.message-client-selected {
+  background-color: #E6CEAB;
+}
+
+.badge-pending {
+  background-color: #E6CEAB;
+}
+
+.width-85 {
+  min-width: 85px;
+}
