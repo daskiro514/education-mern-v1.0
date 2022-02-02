@@ -49,6 +49,25 @@ const CustomerAcademy = ({ match, getCourses, courses }) => {
                       responsive={true}
                     />
                   </div>
+                  {item.exams.map((item, index) =>
+                    <div key={index} className='my-3'>
+                      <div>Question {index + 1}: {item.question}</div>
+                      <div className='row my-2'>
+                        <div className='col-md-3'>
+                          <div className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1'}>a) {item.answer1}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1'}>b) {item.answer2}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1'}>c) {item.answer3}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1'}>d) {item.answer4}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
