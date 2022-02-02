@@ -61,7 +61,7 @@ const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
                     />
                   </div>
                   {item.exams.map((item, index) =>
-                    <div key={index}>
+                    <div key={index} className='my-3'>
                       <div>Question {index + 1}: {item.question}</div>
                       <div className='row my-2'>
                         <div className='col-md-3'>
