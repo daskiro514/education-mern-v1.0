@@ -16,6 +16,12 @@ const CourseSchema = new mongoose.Schema({
   video: {
     type: String
   },
+  exams: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'exam'
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

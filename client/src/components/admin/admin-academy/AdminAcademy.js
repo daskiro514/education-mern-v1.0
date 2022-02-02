@@ -48,7 +48,7 @@ const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
                       className='btn bg-pure-gold-brown mb-2 ml-2 width-85'
                     >DELETE</button>
                   </div>
-                  <div className='font-18 font-bold'>
+                  <div className='font-18 font-bold text-center mt-2'>
                     Module {index + 1}: {item.title}
                   </div>
                   <div className='font-18 pt-3 text-justify course-description'>
@@ -60,6 +60,25 @@ const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
                       responsive={true}
                     />
                   </div>
+                  {item.exams.map((item, index) =>
+                    <div key={index}>
+                      <div>Question {index + 1}: {item.question}</div>
+                      <div className='row my-2'>
+                        <div className='col-md-3'>
+                          <div className={'p-2 rounded-lg ' + (item.isRight1 ? 'bg-pure-gold-brown' : 'bg-pure-gold-grey1')}>a) {item.answer1}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'p-2 rounded-lg ' + (item.isRight2 ? 'bg-pure-gold-brown' : 'bg-pure-gold-grey1')}>b) {item.answer2}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'p-2 rounded-lg ' + (item.isRight3 ? 'bg-pure-gold-brown' : 'bg-pure-gold-grey1')}>c) {item.answer3}</div>
+                        </div>
+                        <div className='col-md-3'>
+                          <div className={'p-2 rounded-lg ' + (item.isRight4 ? 'bg-pure-gold-brown' : 'bg-pure-gold-grey1')}>d) {item.answer4}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

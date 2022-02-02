@@ -31,6 +31,9 @@ export const getClient = clientID => async dispatch => {
   const res = await api.get(`/client/getClient/${clientID}`)
 
   if (res.data.success) {
-    
+    dispatch({
+      type: CLIENT_LOADED,
+      payload: res.data.client
+    })
   }
 }

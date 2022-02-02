@@ -129,6 +129,14 @@ hr {
   min-height: 100vh;
 }
 
+.bg-pure-gold-grey1 {
+  background: #E5E5E5;
+}
+
+.bg-pure-gold-grey2 {
+  background-color: rgba(31, 32, 37, 0.6);
+}
+
 .pure-gold-rounded-lg {
   border-radius: 10px !important;
 }
