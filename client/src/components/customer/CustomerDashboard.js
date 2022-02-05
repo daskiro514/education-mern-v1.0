@@ -168,7 +168,7 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
                   :
                   <div className='text-center my-4' onClick={() => onSubmit()}>
                     <button className='btn bg-pure-gold-brown'>
-                      Submit1
+                      Submit
                     </button>
                   </div>
                 : null
