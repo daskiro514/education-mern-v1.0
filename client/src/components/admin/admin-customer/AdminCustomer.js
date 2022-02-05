@@ -80,7 +80,7 @@ const AdminCustomer = ({ match, client, getClient, getClientExamResults, results
                       </div>
                       <div>
                         Quiz Score: 
-                        <span className={item.state === 'Completed' ? 'color-brown' : ''}> {item.score}%</span>
+                        <span className={item.state === 'Completed' ? 'color-brown' : ''}> {item.state === 'Completed' ? item.score + ' %' : ''}</span>
                       </div>
                     </div>
                   )}
