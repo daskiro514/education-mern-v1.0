@@ -2,8 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getAdminClients } from '../../../actions/admin'
 import { formatDateTime } from '../../../utils/formatDate1'
+import { deleteClient } from '../../../actions/client'
+import { useHistory } from 'react-router-dom'
 
-const AdminCustomers = ({ clients, getAdminClients }) => {
+const AdminCustomers = ({ clients, getAdminClients, deleteClient }) => {
+  const history = useHistory()
 
   React.useEffect(() => {
     getAdminClients()
@@ -36,7 +39,7 @@ const AdminCustomers = ({ clients, getAdminClients }) => {
             </div>
           </div>
           <div className='table-responsive'>
-            <table className='table table-borderless'>
+            <table className='table table-borderless table-striped'>
               <thead>
                 <tr>
                   <th>NO</th>
@@ -52,8 +55,8 @@ const AdminCustomers = ({ clients, getAdminClients }) => {
               </thead>
               <tbody>
                 {clients.map((item, index) =>
-                  <tr key={index}>
-                    <td>{index + 1}</td>
+                  <tr key={index} className='cursor-pointer' onClick={() => history.push(`/customer/${item._id}`)}>
+                    <td className='pl-3 rounded-left'>{index + 1}</td>
                     <td className='font-34 text-center'>
                       <img alt='SETIMAGE' src={item.avatar} width='60px' className='rounded-lg' />
                     </td>
@@ -67,10 +70,18 @@ const AdminCustomers = ({ clients, getAdminClients }) => {
                     <td>{item.phone}</td>
                     <td>{item.subscription}</td>
                     <td>{item.state === 'Active' ? formatDateTime(item.currentPeriodEnd * 1000) : ''}</td>
-                    <td>
-                      <i className='fa fa-pause font-16 mr-2 cursor-pointer'></i>
-                      <i className='fa fa-play font-16 mr-2 cursor-pointer'></i>
-                      <i className='fa fa-trash font-16 mr-2 cursor-pointer'></i>
+                    <td className='text-center rounded-right'>
+                      <i className='fa fa-pause font-16 mx-1 cursor-pointer'></i>
+                      <i className='fa fa-play font-16 mx-1 cursor-pointer'></i>
+                      <i
+                        className='fa fa-trash font-16 mx-1 cursor-pointer'
+                        onClick={e => {
+                          e.stopPropagation()
+                          if (window.confirm('Are you sure?')) {
+                            deleteClient(item._id)
+                          }
+                        }}
+                      ></i>
                     </td>
                   </tr>
                 )}
@@ -87,4 +98,4 @@ const mapStateToProps = state => ({
   clients: state.admin.clients
 })
 
-export default connect(mapStateToProps, { getAdminClients })(AdminCustomers)
+export default connect(mapStateToProps, { getAdminClients, deleteClient })(AdminCustomers)

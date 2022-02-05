@@ -54,7 +54,7 @@ const AdminAcademyCreate = ({ match, addNewCourse, setAlert }) => {
     if (question === '' || answer1 === '' || answer2 === '' || answer3 === '' || answer4 === '') {
       setAlert('Invalid Inputs', 'warning')
     } else if (!isRight1 && !isRight2 && !isRight3 && !isRight4) {
-      setAlert('You should set one exact answer at least.', 'warning')
+      setAlert('You should set one exact answer.', 'warning')
     } else {
       let _exams = [...exams]
       _exams.push(_exam)

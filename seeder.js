@@ -1,5 +1,7 @@
 // MODEL
 const User = require('./models/User')
+const Message = require('./models/Message')
+const Result = require('./models/Result')
 
 // MIGRATION DATA
 const users = require('./migrate/users.js')
@@ -28,6 +30,8 @@ const importData = async () => {
 const destroyData = async (onImport = false) => {
   try {
     await User.deleteMany()
+    await Message.deleteMany()
+    await Result.deleteMany()
     console.log('Data Destroyed!')
     if (!onImport) process.exit()
   } catch (error) {

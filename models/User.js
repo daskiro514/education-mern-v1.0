@@ -56,7 +56,8 @@ const UserSchema = new mongoose.Schema({
     default: 'InActive'
   },
   phone: {
-    type: String
+    type: String,
+    default: 'Not Registered'
   },
   subscription: {
     type: String,
@@ -67,6 +68,14 @@ const UserSchema = new mongoose.Schema({
   },
   currentPeriodEnd: {
     type: Number
+  },
+  nextCategory: {
+    type: Number,
+    default: 1
+  },
+  nextChapter: {
+    type: Number,
+    default: 1
   }
 });
 

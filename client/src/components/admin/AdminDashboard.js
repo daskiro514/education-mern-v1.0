@@ -43,16 +43,12 @@ const AdminDashboard = () => {
       <div className='col-lg-5'>
         <div className='bg-white pure-gold-rounded-lg p-3 mb-3'>
           <div className='font-24 font-bold'>Track Sales</div>
-          {[1, 2, 3, 4, 5].map((item, index) =>
+          {[1, 2, 3, 4, 5, 6].map((item, index) =>
             <table key={index} className='my-3'>
               <tbody>
                 <tr>
                   <td className='font-bold font-14 pr-3'>PRODUCT NAME:</td>
                   <td className='font-13'>MASTER MIND PACKAGE</td>
-                </tr>
-                <tr>
-                  <td className='font-bold font-14 pr-3'>TRNASFER ID:</td>
-                  <td className='font-13'>tr_1JeiVvAQ1wHtJVmkSQWEcBsA</td>
                 </tr>
                 <tr>
                   <td className='font-bold font-14 pr-3'>AMOUNT:</td>

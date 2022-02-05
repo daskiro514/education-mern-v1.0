@@ -18,7 +18,7 @@ const Alert = ({ alerts }) => {
           NotificationManager.warning('Warning message', alert.msg, 2000)
           break
         case 'danger':
-          NotificationManager.warning('Warning message', alert.msg, 2000)
+          NotificationManager.error('Warning message', alert.msg, 2000)
           break
         case 'error':
           NotificationManager.error('Error message', alert.msg, 2000)

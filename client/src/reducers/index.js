@@ -5,6 +5,7 @@ import course from './course'
 import admin from './admin'
 import client from './client'
 import message from './message'
+import exam from './exam'
 
 export default combineReducers({
   alert,
@@ -12,5 +13,6 @@ export default combineReducers({
   course,
   admin,
   client,
-  message
+  message,
+  exam
 })

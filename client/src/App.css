@@ -187,6 +187,10 @@ hr {
   background: #D2A869;
 }
 
+.color-brown {
+  color: #D2A869;
+}
+
 .search-filter {
   width: 120px;
   margin-left: 10px;
@@ -235,4 +239,9 @@ hr {
 
 .width-85 {
   min-width: 85px;
+}
+
+.cursor-disabled {
+  cursor: no-drop;
+  color: #E6CEAB;
 }

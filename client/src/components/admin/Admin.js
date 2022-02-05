@@ -14,6 +14,7 @@ import AdminMessages from './admin-messages/AdminMessages'
 import AdminClientMessages from './admin-messages/AdminClientMessages'
 import { getClientsMessageNumbers, getMessages, getAdminUnreadMessages } from '../../actions/message'
 import { setAlert } from '../../actions/alert'
+import AdminCustomer from './admin-customer/AdminCustomer'
 
 const checkArraysSame = (array1, array2) => {
   var isSame = (array1.length === array2.length) && array1.every(function (element, index) {
@@ -79,6 +80,7 @@ const Admin = ({ setAlert, getMessages, getAdminUnreadMessages }) => {
           <Router basename="/dashboard">
             <PrivateRoute exact path="/" component={AdminDashboard} />
             <PrivateRoute exact path="/customers" component={AdminCustomers} />
+            <PrivateRoute exact path="/customer/:id" component={AdminCustomer} />
             <PrivateRoute exact path="/academy/:category/:chapter" component={AdminAcademy} />
             <PrivateRoute exact path="/academy-create/:category/:chapter" component={AdminAcademyCreate} />
             <PrivateRoute exact path="/academy-edit/:id" component={AdminAcademyEdit} />

@@ -17,7 +17,10 @@ const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
     <div className='row admin-academy bg-pure-gold-grey py-4'>
       <div className='col-lg-12'>
         <div className='bg-white pure-gold-rounded-lg p-3 mb-3'>
-          <div className='font-24 font-bold'>Academy <Link to={`/academy-create/${category}/${chapter}`}><i className='fa fa-plus-circle text-pure-gold-grey'></i></Link></div>
+          <div className='font-24 font-bold'>
+            Academy 
+            {courses.length ? null : <Link to={`/academy-create/${category}/${chapter}`}> <i className='fa fa-plus-circle text-pure-gold-grey'></i></Link>}
+          </div>
           <div className='row pt-4'>
             <div className='col-lg-3 col-md-5 border-right'>
               {['READY', 'SET', 'LAUNCH'].map((item, index) =>
@@ -48,9 +51,7 @@ const AdminAcademy = ({ match, getCourses, deleteCourse, courses }) => {
                       className='btn bg-pure-gold-brown mb-2 ml-2 width-85'
                     >DELETE</button>
                   </div>
-                  <div className='font-18 font-bold text-center mt-2'>
-                    Module {index + 1}: {item.title}
-                  </div>
+                  <div className='font-18 font-bold text-center mt-2'>{item.title}</div>
                   <div className='font-18 pt-3 text-justify course-description'>
                     {item.description}
                   </div>

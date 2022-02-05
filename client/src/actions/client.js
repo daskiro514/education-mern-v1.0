@@ -4,6 +4,7 @@ import {
   CLIENTS_LOADED,
   CLIENT_LOADED
 } from './types'
+import { getAdminClients } from './admin'
 
 export const getAdmin = () => async dispatch => {
   const res = await api.get('/client/getAdmin')
@@ -35,5 +36,13 @@ export const getClient = clientID => async dispatch => {
       type: CLIENT_LOADED,
       payload: res.data.client
     })
+  }
+}
+
+export const deleteClient = clientID => async dispatch => {
+  const res = await api.delete(`/client/deleteClient/${clientID}`)
+
+  if (res.data.success) {
+    dispatch(getAdminClients())
   }
 }
