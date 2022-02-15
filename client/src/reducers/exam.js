@@ -5,7 +5,12 @@ import {
 
 const initialState = {
   results: [],
-  result: false
+  result: {
+    state: 'Incomplete',
+    score: 0,
+    questions: [],
+    answers: []
+  }
 }
 
 const examReducer = (state = initialState, action) => {

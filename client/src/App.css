@@ -241,6 +241,10 @@ hr {
   min-width: 85px;
 }
 
+.width-100 {
+  min-width: 100px;
+}
+
 .cursor-disabled {
   cursor: no-drop;
   color: #E6CEAB;

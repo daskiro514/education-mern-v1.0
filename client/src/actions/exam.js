@@ -35,3 +35,12 @@ export const getClientExamResults = clientID => async dispatch => {
     })
   }
 }
+
+export const updateClientExamResult = (formData, history) => async dispatch => {
+  const res = await api.post('/exam/updateClientExamResult', formData)
+
+  if (res.data.success) {
+    dispatch(getClientExamResults(formData.client))
+    history.push(`/customer/${formData.client}`)
+  }
+}

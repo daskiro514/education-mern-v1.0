@@ -13,11 +13,6 @@ router.post('/createExamResult', async (req, res) => {
     nextCategory++
   }
 
-  await User.findByIdAndUpdate(req.body.client, {
-    nextCategory,
-    nextChapter
-  }, { new: true })
-
   const newResult = new Result({ ...req.body })
   await newResult.save()
 
@@ -34,7 +29,7 @@ router.get('/getChapterExamResult', async (req, res) => {
   const clientID = req.query.clientID
 
   const _result = await Result.findOne({ chapter, category, client: clientID })
-  let result = _result ? true : false
+  let result = _result ? _result : false
 
   res.json({
     success: true,
@@ -59,23 +54,32 @@ router.get('/getClientExamResults/:id', async (req, res) => {
   }
 
   const _results = await Result.find({ client: clientID })
-  const categoryLength = Math.floor(_results.length / 10)
-  const chapterLength = _results.length % 10
 
-  for (var i = 0; i < categoryLength; i++) {
-    for (var j = 0; j < 10; j++) {
-      results[i][j].state = _results[i * 10 + j].state
-      results[i][j].score = _results[i * 10 + j].score
-    }
-  }
-  for (var i = 0; i < chapterLength; i++) {
-    results[categoryLength][i].state = _results[categoryLength * 10 + i].state
-    results[categoryLength][i].score = _results[categoryLength * 10 + i].score
+  for (var i = 0; i < _results.length; i++) {
+    let _result = _results[i]
+    results[_result.category - 1][_result.chapter - 1] = _result
   }
 
   res.json({
     success: true,
     results
+  })
+})
+
+router.post('/updateClientExamResult', async (req, res) => {
+  let target = {
+    client: req.body.client,
+    category: req.body.category,
+    chapter: req.body.chapter
+  }
+  let update = {
+    state: req.body.state,
+    score: req.body.score
+  }
+  await Result.findOneAndUpdate(target, update, {new: true})
+
+  res.json({
+    success: true
   })
 })
 

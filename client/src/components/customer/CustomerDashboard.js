@@ -21,12 +21,7 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
     if (courses.length) {
       let _answers = []
       for (var i = 0; i < courses[0].exams.length; i++) {
-        let _answer = {
-          isRight1: false,
-          isRight2: false,
-          isRight3: false,
-          isRight4: false
-        }
+        let _answer = ''
         _answers.push(_answer)
       }
       setAnswers(_answers)
@@ -34,58 +29,37 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
   }, [courses])
 
   const goChapter = (categoryIndex, chapterIndex) => {
-    if (categoryIndex + 1 < user.nextCategory) {
-      history.push(`/academy/${categoryIndex + 1}/${chapterIndex + 1}`)
-    } else if (categoryIndex + 1 === user.nextCategory && chapterIndex + 1 <= user.nextChapter) {
-      history.push(`/academy/${categoryIndex + 1}/${chapterIndex + 1}`)
-    } else {
-      setAlert("You must pass the current chapter exam.", 'danger')
-    }
+    history.push(`/academy/${categoryIndex + 1}/${chapterIndex + 1}`)
   }
 
-  const setRightAnswer = async (index, key) => {
-    answers[index][key] = !answers[index][key]
-    await setAnswers([])
-    await setAnswers(answers)
+  const setRightAnswer = (index, answer) => {
+    let _answers = [...answers]
+    _answers[index] = answer
+    setAnswers(_answers)
   }
 
   const onSubmit = () => {
-    let score = 0
-    let examRightAnswers = 0
-    let userRightAnswers = 0
-    let userAnswers = 0
-    for (var i = 0; i < courses[0].exams.length; i++) {
-      let exam = courses[0].exams[i]
+    let questions = []
+    
+    for (var i = 0; i < answers.length; i++) {
       let answer = answers[i]
-      for (var key in answer) {
-        if (exam[key] === true) {
-          examRightAnswers++
-          if (answer[key] === true) {
-            userRightAnswers++
-          }
-        }
-        if (answer[key] === true) {
-          userAnswers++
-        }
+      if (answer === '') {
+        setAlert('You should insert the answer.', 'warning')
+        return
       }
-    }
-    score = userRightAnswers / (examRightAnswers + userAnswers - userRightAnswers) * 100
-
-    let state = 'Incomplete'
-    if (score > 70) {
-      state = 'Completed'
-      setAlert('Congratulations! You passed the exam.', 'success')
-    } else {
-      setAlert('You did not pass the exam. Try again', 'warning')
+      let question = courses[0].exams[i].question
+      questions.push(question)
     }
 
     let formData = {
-      score,
       category,
       chapter,
       client: user._id,
-      state
+      state: 'Pending',
+      questions,
+      answers
     }
+
     createExamResult(formData, history)
   }
 
@@ -103,7 +77,7 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
                   </div>
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((chapterItem, chapterIndex) =>
                     <div key={chapterIndex} to={`/academy/${index + 1}/${chapterItem}`} onClick={() => goChapter(index, chapterIndex)}>
-                      <div className={'rounded-lg cursor-pointer font-16 pl-1 ' + ((index + 1) === Number(category) && chapterItem === Number(chapter) ? 'bg-pure-gold-brown ' : '') + (index + 1 < user.nextCategory ? '' : (index + 1 === user.nextCategory && chapterIndex + 1 <= user.nextChapter ? '' : 'cursor-disabled'))}>
+                      <div className={'rounded-lg cursor-pointer font-16 pl-1 ' + ((index + 1) === Number(category) && chapterItem === Number(chapter) ? 'bg-pure-gold-brown ' : '')}>
                         <i className='fa fa-caret-right'></i> Chapter {chapterItem}
                       </div>
                     </div>
@@ -130,47 +104,25 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
               {answers.map((item, index) =>
                 (courses.length === 1 && answers.length === courses[0].exams.length) ?
                   <div key={index} className='my-3'>
-                    <div>Question {index + 1}: {courses[0].exams[index].question}</div>
-                    <div className='row my-2'>
-                      <div className='col-md-3'>
-                        <div
-                          className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1 ' + (item.isRight1 ? 'bg-pure-gold-brown ' : '')}
-                          onClick={() => setRightAnswer(index, "isRight1")}
-                        >a) {courses[0].exams[index].answer1}</div>
-                      </div>
-                      <div className='col-md-3'>
-                        <div
-                          className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1 ' + (item.isRight2 ? 'bg-pure-gold-brown ' : '')}
-                          onClick={() => setRightAnswer(index, "isRight2")}
-                        >b) {courses[0].exams[index].answer2}</div>
-                      </div>
-                      <div className='col-md-3'>
-                        <div
-                          className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1 ' + (item.isRight3 ? 'bg-pure-gold-brown ' : '')}
-                          onClick={() => setRightAnswer(index, "isRight3")}
-                        >c) {courses[0].exams[index].answer3}</div>
-                      </div>
-                      <div className='col-md-3'>
-                        <div
-                          className={'cursor-pointer p-2 rounded-lg bg-pure-gold-grey1 ' + (item.isRight4 ? 'bg-pure-gold-brown ' : '')}
-                          onClick={() => setRightAnswer(index, "isRight4")}
-                        >d) {courses[0].exams[index].answer4}</div>
-                      </div>
+                    <div>Question {index + 1}: </div>
+                    <div className='ml-3 text-info'>{courses[0].exams[index].question}</div>
+                    <div>Answer: </div>
+                    <div className='ml-3'>
+                      <input
+                        className='form-control'
+                        value={item}
+                        onChange={e => setRightAnswer(index, e.target.value)}
+                      />
                     </div>
                   </div>
                   : null
               )}
               {courses.length > 0 ?
-                result ?
-                  <div className='text-center my-4 h4 color-brown'>
-                    You have already passed this quiz
-                  </div>
-                  :
-                  <div className='text-center my-4' onClick={() => onSubmit()}>
-                    <button className='btn bg-pure-gold-brown'>
-                      Submit
-                    </button>
-                  </div>
+                <div className='text-center my-4' onClick={() => onSubmit()}>
+                  <button className='btn bg-pure-gold-brown'>
+                    Submit
+                  </button>
+                </div>
                 : null
               }
             </div>

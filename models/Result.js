@@ -11,8 +11,15 @@ const ResultSchema = new mongoose.Schema({
   chapter: {
     type: String
   },
+  questions: [
+
+  ],
+  answers: [
+
+  ],
   score: {
-    type: String
+    type: String,
+    default: '0'
   },
   state: {
     type: String,
