@@ -17,6 +17,8 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
     getChapterExamResult(clientID, category, chapter)
   }, [category, chapter, clientID, getCourses, getChapterExamResult])
 
+  console.log(result)
+
   React.useEffect(() => {
     if (courses.length) {
       let _answers = []
@@ -40,7 +42,7 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
 
   const onSubmit = () => {
     let questions = []
-    
+
     for (var i = 0; i < answers.length; i++) {
       let answer = answers[i]
       if (answer === '') {
@@ -118,11 +120,16 @@ const CustomerAcademy = ({ match, getCourses, courses, user, setAlert, createExa
                   : null
               )}
               {courses.length > 0 ?
-                <div className='text-center my-4' onClick={() => onSubmit()}>
-                  <button className='btn bg-pure-gold-brown'>
-                    Submit
-                  </button>
-                </div>
+                result ?
+                  <div className='text-center my-4 font-24 color-brown'>
+                    You have already completed the exam.
+                  </div>
+                  :
+                  <div className='text-center my-4' onClick={() => onSubmit()}>
+                    <button className='btn bg-pure-gold-brown'>
+                      Submit
+                    </button>
+                  </div>
                 : null
               }
             </div>
